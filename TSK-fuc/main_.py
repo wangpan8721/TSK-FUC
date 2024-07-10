@@ -922,7 +922,7 @@ def EMNFU(model,train_data,valid_data,batch_size,n_classes,classes_to_forget,lrf
 
     # min_noises=ErrorMinNoise(model,classes_to_forget,batch_size,shape)
     min_noises=[]
-    # startMu = time.perf_counter()
+    startMu = time.perf_counter()
     max_noises=ErrorMaxNoise(model,classes_to_forget,batch_size,shape)
     noisyDrsub_loader,max_noisy_loader=NUDrsub(min_noises,max_noises,Drsub,n_classes,classes_to_forget)
     model1= copy.deepcopy(model)
@@ -934,7 +934,6 @@ def EMNFU(model,train_data,valid_data,batch_size,n_classes,classes_to_forget,lrf
 
     AMf1_r, AMf1_f = checkAcc(mf1, Dr, Df)
 
-    startMu = time.perf_counter()
     mf2 = Unlearning(lrf2, 2, noisyDrsub_loader, mf1)
     endMu = time.perf_counter()
     TMu = endMu - startMu
